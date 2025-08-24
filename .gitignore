@@ -1,0 +1,88 @@
+# === Java ===
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# === Package / Build directories ===
+bin/
+build/
+out/
+target/
+release/
+.gradle/
+.idea/
+.cache/
+node_modules/
+
+# === Eclipse ===
+.classpath
+.project
+.settings/
+.loadpath
+
+# === IntelliJ IDEA ===
+*.iml
+*.iws
+*.ipr
+.idea/
+
+# === NetBeans ===
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# === VS Code (falls verwendet) ===
+.vscode/
+
+# === OS / Editor Files ===
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# === Maven ===
+target/
+
+# === Gradle ===
+.gradle/
+build/
+
+# === Logs and temp files ===
+*.log
+*.tmp
+*.bak
+
+# === JUnit / Test results ===
+test-output/
+surefire-reports/
+
+# === Coverage reports ===
+jacoco.exec
+coverage/
+
+# === Generated files ===
+generated/
+gen/
+
+# === Others ===
+*.class
+*.pyc
+*.pyo
+*.pyd
+*.orig
+*.rej
+
+# === IDE Metadata backups ===
+*.orig
+*.rej
+
+# === Optional: OS-specific temp files ===
+ehthumbs.db
+Desktop.ini
+
