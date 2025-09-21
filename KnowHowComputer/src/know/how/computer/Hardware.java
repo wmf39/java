@@ -63,12 +63,14 @@ public class Hardware {
 		        break;
 		    case STP:
 		    	run = false;
-		    	System.out.println("Stop");
+		    	System.out.println("Stop\n");
 		        break;	        
 		    default:
 		    	run = false;
 			}
-			//print(pc);
+			if(run) {
+				print(pc);
+			}
 		}	
 	}
 	

@@ -6,8 +6,13 @@ public class Computer {
 	}
 
 	public static void main(String[] args) {
-		Software software = new Software();
-		Hardware hardware = new Hardware(software);
+		Software software;
+		Hardware hardware;
+		software = new Addition();
+		hardware = new Hardware(software);
+		hardware.run();
+		software = new Multiplication();
+		hardware = new Hardware(software);
 		hardware.run();
 	}
 }
