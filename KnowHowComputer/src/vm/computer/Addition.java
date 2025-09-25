@@ -22,7 +22,7 @@ public class Addition implements Software {
 		program.put(3, new Instruction<>(Mnemonic.DEC, 2));
 		program.put(4, new Instruction<>(Mnemonic.EQZ, 2));
 		program.put(5, new Instruction<>(Mnemonic.JMP, 2));
-		program.put(6, new Instruction<>(Mnemonic.STP, null));
+		program.put(6, new Instruction<>(Mnemonic.STP));
 		return program;
 	}
 }

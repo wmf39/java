@@ -5,6 +5,10 @@ public class Instruction<A, B, C> {
 	public final B target;
     public final C source;
 
+    public Instruction(A mnemonic) {
+    	this(mnemonic, null, null);
+    }
+    
     public Instruction(A mnemonic, B target) {
     	this(mnemonic, target, null);
     }

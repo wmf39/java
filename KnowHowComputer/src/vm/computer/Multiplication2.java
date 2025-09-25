@@ -32,7 +32,7 @@ public class Multiplication2 implements Software {
 		program.put(9, new Instruction<>(Mnemonic.EQZ, 4));			// R4 empty?
 		program.put(10, new Instruction<>(Mnemonic.JMP, 3));		// No
 		// End
-		program.put(11, new Instruction<>(Mnemonic.STP, null));		// Stop
+		program.put(11, new Instruction<>(Mnemonic.STP));			// Stop
 		return program;
 	}
 }

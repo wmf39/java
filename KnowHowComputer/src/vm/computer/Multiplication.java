@@ -45,7 +45,7 @@ public class Multiplication implements Software {
 		program.put(21, new Instruction<>(Mnemonic.EQZ, 6));		// R6 empty?
 		program.put(22, new Instruction<>(Mnemonic.JMP, 19));		// No
 		// End
-		program.put(23, new Instruction<>(Mnemonic.STP, null));		// Stop
+		program.put(23, new Instruction<>(Mnemonic.STP));		// Stop
 		return program;
 	}
 }
