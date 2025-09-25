@@ -3,9 +3,8 @@ package know.how.computer2;
 public enum Command {
     INC("+"),
     DEC("-"),
-    SPC("SC"),
+    SPC("S"),
     EQZ("0"),
-    STR("ST"),
     STP("STOP");
 
     private final String symbol;

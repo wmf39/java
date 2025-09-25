@@ -41,7 +41,6 @@ public class Hardware {
 		boolean run = true;
 		while(run) {
 			Command cmd = program.get(pc).first;
-			Integer source = 0;
 			Integer target = 0;
 			Integer data = 0;
 			switch (cmd) {
@@ -73,14 +72,6 @@ public class Hardware {
 		    		pc++;
 		    		System.out.println("Not equal to zero, set program counter to " + pc);
 		    	}
-		        break;
-		    case STR:
-		    	source = program.get(pc).second;
-		    	data = dataRegister.get(source);
-		    	target = program.get(pc).third;
-		    	dataRegister.put(target, data);
-		        System.out.println("Store >" + data + "< from register" + source + " to " + "register" + target);
-		        pc++;
 		        break;
 		    case STP:
 		    	run = false;
