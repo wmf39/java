@@ -10,7 +10,7 @@ public class Hardware {
 	public static final int MAX_REGISTER_ADR = 8;
 	
 	HashMap <Integer, Integer >dataRegister = new HashMap<>();
-	HashMap<Integer, Triple<Command, Integer, Integer>> program;
+	HashMap<Integer, Instruction<Mnemonic, Integer, Integer>> program;
 
 	public Hardware(Software software) {
 		this.program = software.getProgram();
@@ -40,31 +40,31 @@ public class Hardware {
 		int pc = 1;
 		boolean run = true;
 		while(run) {
-			Command cmd = program.get(pc).first;
+			Mnemonic mnemonic = program.get(pc).mnemonic;
 			Integer source = 0;
 			Integer target = 0;
 			Integer data = 0;
-			switch (cmd) {
+			switch (mnemonic) {
 		    case INC:
-		    	target = program.get(pc).third;
+		    	target = program.get(pc).target;
 		        data = dataRegister.get(target) + 1;
 		        dataRegister.put(target, data);
 		        System.out.println("Incremented register" + target + " to " + data);
 		        pc++;
 		        break;
 		    case DEC:
-		    	target = program.get(pc).third;
+		    	target = program.get(pc).target;
 		        data = dataRegister.get(target) - 1;
 		        dataRegister.put(target, data);
 		        System.out.println("Decremented register" + target + " to " + data);
 		        pc++;
 		        break;
 		    case JMP:
-		    	pc = program.get(pc).third;
+		    	pc = program.get(pc).target;
 		    	System.out.println("Set program counter to " + pc);
 		        break;
 		    case EQZ:
-		    	target = program.get(pc).third;
+		    	target = program.get(pc).target;
 		    	if(dataRegister.get(target) == 0) {
 		    		pc+=2;
 		    		System.out.println("Equal to zero, set program counter to " + pc);
@@ -75,9 +75,9 @@ public class Hardware {
 		    	}
 		        break;
 		    case STR:
-		    	source = program.get(pc).second;
+		    	source = program.get(pc).source;
 		    	data = dataRegister.get(source);
-		    	target = program.get(pc).third;
+		    	target = program.get(pc).target;
 		    	dataRegister.put(target, data);
 		        System.out.println("Store >" + data + "< from register" + source + " to " + "register" + target);
 		        pc++;

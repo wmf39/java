@@ -14,25 +14,25 @@ public class Multiplication2 implements Software {
 	}
 
 	@Override
-	public HashMap<Integer, Triple<Command, Integer, Integer>> getProgram() {
-		HashMap<Integer, Triple<Command, Integer, Integer>> program = new HashMap<>();
-		// storage address; command, source, target
+	public HashMap<Integer, Instruction<Mnemonic, Integer, Integer>> getProgram() {
+		HashMap<Integer, Instruction<Mnemonic, Integer, Integer>> program = new HashMap<>();
+		// storage address; mnemonic, target, source
 		// Load counter, backup Multiplier b
-		program.put(1, new Triple<>(Command.STR, 1, 4));			// Store R1 -> R4 (counter)
-		program.put(2, new Triple<>(Command.STR, 2, 5));			// Store R2 -> R5 (backup)
+		program.put(1, new Instruction<>(Mnemonic.STR, 4, 1));		// Store R1 -> R4 (counter)
+		program.put(2, new Instruction<>(Mnemonic.STR, 5, 2));		// Store R2 -> R5 (backup)
 		// Multiply
-		program.put(3, new Triple<>(Command.DEC, null, 2));			// Dec R2
-		program.put(4, new Triple<>(Command.INC, null, 3));			// Inc R3 (result)
-		program.put(5, new Triple<>(Command.EQZ, null, 2));			// R2 empty?
-		program.put(6, new Triple<>(Command.JMP, null, 3));			// No
+		program.put(3, new Instruction<>(Mnemonic.DEC, 2));			// Dec R2
+		program.put(4, new Instruction<>(Mnemonic.INC, 3));			// Inc R3 (result)
+		program.put(5, new Instruction<>(Mnemonic.EQZ, 2));			// R2 empty?
+		program.put(6, new Instruction<>(Mnemonic.JMP, 3));			// No
 		// Restore Multiplier b
-		program.put(7, new Triple<>(Command.STR, 5, 2));			// Store R5 -> R2
+		program.put(7, new Instruction<>(Mnemonic.STR, 2, 5));		// Store R5 -> R2
 		// Multiply loop
-		program.put(8, new Triple<>(Command.DEC, null, 4));			// Dec R4
-		program.put(9, new Triple<>(Command.EQZ, null, 4));			// R4 empty?
-		program.put(10, new Triple<>(Command.JMP, null, 3));		// No
+		program.put(8, new Instruction<>(Mnemonic.DEC, 4));			// Dec R4
+		program.put(9, new Instruction<>(Mnemonic.EQZ, 4));			// R4 empty?
+		program.put(10, new Instruction<>(Mnemonic.JMP, 3));		// No
 		// End
-		program.put(11, new Triple<>(Command.STP, null, null));		// Stop
+		program.put(11, new Instruction<>(Mnemonic.STP, null));		// Stop
 		return program;
 	}
 }

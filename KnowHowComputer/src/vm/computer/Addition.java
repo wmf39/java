@@ -14,15 +14,15 @@ public class Addition implements Software {
 	}
 
 	@Override
-	public HashMap<Integer, Triple<Command, Integer, Integer>> getProgram() {
-		HashMap<Integer, Triple<Command, Integer, Integer>> program = new HashMap<>();
-		// storage address; command, source, target
-		program.put(1, new Triple<>(Command.JMP, null, 4));
-		program.put(2, new Triple<>(Command.INC, null, 1));
-		program.put(3, new Triple<>(Command.DEC, null, 2));
-		program.put(4, new Triple<>(Command.EQZ, null, 2));
-		program.put(5, new Triple<>(Command.JMP, null, 2));
-		program.put(6, new Triple<>(Command.STP, null, null));
+	public HashMap<Integer, Instruction<Mnemonic, Integer, Integer>> getProgram() {
+		HashMap<Integer, Instruction<Mnemonic, Integer, Integer>> program = new HashMap<>();
+		// storage address; mnemonic, target
+		program.put(1, new Instruction<>(Mnemonic.JMP, 4));
+		program.put(2, new Instruction<>(Mnemonic.INC, 1));
+		program.put(3, new Instruction<>(Mnemonic.DEC, 2));
+		program.put(4, new Instruction<>(Mnemonic.EQZ, 2));
+		program.put(5, new Instruction<>(Mnemonic.JMP, 2));
+		program.put(6, new Instruction<>(Mnemonic.STP, null));
 		return program;
 	}
 }

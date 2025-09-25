@@ -1,6 +1,6 @@
 package vm.computer;
 
-public enum Command {
+public enum Mnemonic {
     INC("++"),
     DEC("--"),
     JMP("SPC"),
@@ -10,7 +10,7 @@ public enum Command {
 
     private final String symbol;
 
-    Command(String symbol) {
+    Mnemonic(String symbol) {
         this.symbol = symbol;
     }
 
