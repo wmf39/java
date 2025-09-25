@@ -6,6 +6,8 @@ public enum Mnemonic {
     JMP("SPC"),
     EQZ("ISZ"),
     STR("ST"),
+    POP("POP"),
+    PUSH("PUSH"),
     STP("STOP");
 
     private final String symbol;

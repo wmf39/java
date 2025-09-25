@@ -4,22 +4,31 @@ import java.util.HashMap;
 
 public class Hardware {
 
+	public static final int PROGRAM_COUNTER_MIN = 1;
+	public static final int STACKPOINTER_END = 1;
+	public static final int STACKPOINTER_START = 128;
 	public static final int MIN_STORAGE_ADR = 1;
 	public static final int MAX_STORAGE_ADR = 100;
 	public static final int MIN_REGISTER_ADR = 1;
 	public static final int MAX_REGISTER_ADR = 8;
+	public static final int MIN_RAM_ADR = 1;
+	public static final int MAX_RAM_ADR = 1024;
 	
-	HashMap <Integer, Integer >dataRegister = new HashMap<>();
+	HashMap <Integer, Integer> dataRegister = new HashMap<>();
+	HashMap <Integer, Integer> ram = new HashMap<>();
 	HashMap<Integer, Instruction<Mnemonic, Integer, Integer>> program;
 
 	public Hardware(Software software) {
 		this.program = software.getProgram();
+		initRegisters(software.getInitialisation());
+	}
+	
+	private void  initRegisters(HashMap <Integer, Integer> initValues) {
 		if(program.size() < MIN_STORAGE_ADR || program.size() > MAX_STORAGE_ADR)
 			throw new IllegalArgumentException("storage size missmatch");
 		for (int i = 1; i <= 8; i++) {
 			dataRegister.put(i, 0);
         }
-		HashMap <Integer, Integer> initValues = software.getInitialisation();
 		if(initValues.size() > MAX_REGISTER_ADR)
 			throw new IllegalArgumentException("register size missmatch");
 		if(!initValues.isEmpty()) {
@@ -37,7 +46,8 @@ public class Hardware {
 	}
 	
 	public void run() {
-		int pc = 1;
+		int pc = PROGRAM_COUNTER_MIN;
+		int sp = STACKPOINTER_START;
 		boolean run = true;
 		while(run) {
 			Mnemonic mnemonic = program.get(pc).mnemonic;
@@ -80,6 +90,26 @@ public class Hardware {
 		    	target = program.get(pc).target;
 		    	dataRegister.put(target, data);
 		        System.out.println("Store >" + data + "< from register" + source + " to " + "register" + target);
+		        pc++;
+		        break;
+		    case POP:
+		    	if(sp >= STACKPOINTER_END) {
+			    	target = program.get(pc).target;
+			    	data = ram.get(sp);
+			    	dataRegister.put(target, data);
+			        System.out.println("Pop >" + data + "< from ram address" + sp + " to " + "register" + target);
+			    	sp++;
+		    	}
+		        pc++;
+		        break;
+		    case PUSH:
+		    	if(sp <= STACKPOINTER_START) {
+			    	source = program.get(pc).source;
+			    	data = dataRegister.get(source);
+			    	ram.put(sp, data);
+			        System.out.println("Push >" + data  + "< from " + "register" + source + "< to ram address" + sp);
+			        sp--;
+		    	}
 		        pc++;
 		        break;
 		    case STP:
