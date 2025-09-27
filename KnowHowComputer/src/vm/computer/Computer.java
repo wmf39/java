@@ -8,27 +8,32 @@ public class Computer {
 	public static void main(String[] args) {
 		Software software;
 		Hardware hardware;
-		int selection = 4;
+		int selection = 5;
 		
 		if(selection == 1) {
-		software = new Addition();
-		hardware = new Hardware(software);
-		hardware.run();
+			software = new Addition();
+			hardware = new Hardware(software);
+			hardware.run();
 		}
 		else if(selection == 2) {
-		software = new Multiplication();
-		hardware = new Hardware(software);
-		hardware.run();
+			software = new Multiplication();
+			hardware = new Hardware(software);
+			hardware.run();
 		}
 		else if(selection == 3) {
-		software = new Multiplication2();
-		hardware = new Hardware(software);
-		hardware.run();
+			software = new Multiplication2();
+			hardware = new Hardware(software);
+			hardware.run();
 		}
 		else if(selection == 4) {
-		software = new Function1();
-		hardware = new Hardware(software);
-		hardware.run();
+			software = new Function1();
+			hardware = new Hardware(software);
+			hardware.run();
+		}
+		else if(selection == 5) {
+			software = new Function2();
+			hardware = new Hardware(software);
+			hardware.run();
 		}
 	}
 }
