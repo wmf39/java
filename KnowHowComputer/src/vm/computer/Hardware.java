@@ -14,6 +14,8 @@ public class Hardware {
 	public static final int MIN_RAM_ADR = 1;
 	public static final int MAX_RAM_ADR = 1024;
 	
+	public static final int DEFAULT_INIT_VAL = 0;
+	
 	HashMap <Integer, Integer> dataRegister = new HashMap<>();
 	HashMap <Integer, Integer> ram = new HashMap<>();
 	HashMap<Integer, Instruction<Mnemonic, Integer, Integer, Integer>> program;
@@ -26,8 +28,8 @@ public class Hardware {
 	private void  initRegisters(HashMap <Integer, Integer> initValues) {
 		if(program.size() < MIN_STORAGE_ADR || program.size() > MAX_STORAGE_ADR)
 			throw new IllegalArgumentException("storage size missmatch");
-		for (int i = 1; i <= 8; i++) {
-			dataRegister.put(i, 0);
+		for (int i = MIN_REGISTER_ADR; i <= MAX_REGISTER_ADR; i++) {
+			dataRegister.put(i, DEFAULT_INIT_VAL);
         }
 		if(initValues.size() > MAX_REGISTER_ADR)
 			throw new IllegalArgumentException("register size missmatch");
