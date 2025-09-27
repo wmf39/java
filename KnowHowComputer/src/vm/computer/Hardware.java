@@ -16,7 +16,7 @@ public class Hardware {
 	
 	HashMap <Integer, Integer> dataRegister = new HashMap<>();
 	HashMap <Integer, Integer> ram = new HashMap<>();
-	HashMap<Integer, Instruction<Mnemonic, Integer, Integer>> program;
+	HashMap<Integer, Instruction<Mnemonic, Integer, Integer, Integer>> program;
 
 	public Hardware(Software software) {
 		this.program = software.getProgram();
@@ -51,70 +51,105 @@ public class Hardware {
 		boolean run = true;
 		while(run) {
 			Mnemonic mnemonic = program.get(pc).mnemonic;
-			Integer source = 0;
-			Integer target = 0;
+			Integer operand1 = 0;
+			Integer operand2 = 0;
+			Integer operand3 = 0;
 			Integer data = 0;
 			switch (mnemonic) {
 		    case INC:
-		    	target = program.get(pc).target;
-		        data = dataRegister.get(target) + 1;
-		        dataRegister.put(target, data);
-		        System.out.println("Incremented register" + target + " to " + data);
+		    	operand1 = program.get(pc).operand1;
+		        data = dataRegister.get(operand1) + 1;
+		        dataRegister.put(operand1, data);
+		        System.out.println("INC: Incremented register" + operand1 + " to " + data);
 		        pc++;
 		        break;
 		    case DEC:
-		    	target = program.get(pc).target;
-		        data = dataRegister.get(target) - 1;
-		        dataRegister.put(target, data);
-		        System.out.println("Decremented register" + target + " to " + data);
+		    	operand1 = program.get(pc).operand1;
+		        data = dataRegister.get(operand1) - 1;
+		        dataRegister.put(operand1, data);
+		        System.out.println("DEC: Decremented register" + operand1 + " to " + data);
+		        pc++;
+		        break;
+		    case ADD:
+		    	operand1 = program.get(pc).operand1;
+		    	operand2 = program.get(pc).operand2;
+		    	operand3 = program.get(pc).operand3;
+		        data = dataRegister.get(operand2) + dataRegister.get(operand3);
+		        dataRegister.put(operand1, data);
+		        System.out.println("ADD: Added register" + operand2 + " to register" + operand3 + " stored >" + data + "< in register" + operand1);
+		        pc++;
+		        break;
+		    case MULT:
+		    	operand1 = program.get(pc).operand1;
+		    	operand2 = program.get(pc).operand2;
+		    	operand3 = program.get(pc).operand3;
+		        data = dataRegister.get(operand2) * dataRegister.get(operand3);
+		        dataRegister.put(operand1, data);
+		        System.out.println("MULT: Multiply register" + operand2 + " with register" + operand3 + " stored >" + data + "< in register" + operand1);
 		        pc++;
 		        break;
 		    case JMP:
-		    	pc = program.get(pc).target;
-		    	System.out.println("Set program counter to " + pc);
+		    	pc = program.get(pc).operand1;
+		    	System.out.println("JMP: Set program counter to " + pc);
 		        break;
 		    case EQZ:
-		    	target = program.get(pc).target;
-		    	if(dataRegister.get(target) == 0) {
+		    	operand1 = program.get(pc).operand1;
+		    	if(dataRegister.get(operand1) == 0) {
 		    		pc+=2;
-		    		System.out.println("Equal to zero, set program counter to " + pc);
+		    		System.out.println("EQZ: Equal to zero, set program counter to " + pc);
 		    	}
 		    	else {
 		    		pc++;
-		    		System.out.println("Not equal to zero, set program counter to " + pc);
+		    		System.out.println("EQZ: Not equal to zero, set program counter to " + pc);
 		    	}
 		        break;
 		    case STR:
-		    	source = program.get(pc).source;
-		    	data = dataRegister.get(source);
-		    	target = program.get(pc).target;
-		    	dataRegister.put(target, data);
-		        System.out.println("Store >" + data + "< from register" + source + " to " + "register" + target);
+		    	operand2 = program.get(pc).operand2;
+		    	data = dataRegister.get(operand2);
+		    	operand1 = program.get(pc).operand1;
+		    	dataRegister.put(operand1, data);
+		        System.out.println("STR: Store >" + data + "< from register" + operand2 + " to " + "register" + operand1);
 		        pc++;
 		        break;
 		    case POP:
 		    	if(sp >= STACKPOINTER_END) {
-			    	target = program.get(pc).target;
-			    	data = ram.get(sp);
-			    	dataRegister.put(target, data);
-			        System.out.println("Pop >" + data + "< from ram address" + sp + " to " + "register" + target);
 			    	sp++;
+			    	operand1 = program.get(pc).operand1;
+			    	data = ram.get(sp);
+			    	dataRegister.put(operand1, data);
+			        System.out.println("POP: Pop >" + data + "< from ram address " + sp + " to " + "register" + operand1);
 		    	}
 		        pc++;
 		        break;
 		    case PUSH:
 		    	if(sp <= STACKPOINTER_START) {
-			    	source = program.get(pc).source;
-			    	data = dataRegister.get(source);
+		    		operand1 = program.get(pc).operand1;
+			    	data = dataRegister.get(operand1);
 			    	ram.put(sp, data);
-			        System.out.println("Push >" + data  + "< from " + "register" + source + "< to ram address" + sp);
+			        System.out.println("PUSH: Push >" + data  + "< from " + "register" + operand1 + "< to ram address " + sp);
 			        sp--;
 		    	}
 		        pc++;
 		        break;
+		    case CALL:
+		    	if(sp >= STACKPOINTER_END) {
+		    		operand1 = program.get(pc).operand1;
+		    		ram.put(sp, pc + 1);
+		    		pc = operand1;
+			        System.out.println("CALL: Jump to " + pc);
+			        sp--;
+		    	}
+		        break;
+		    case RET:
+		    	if(sp <= STACKPOINTER_START) {
+		    		sp++;
+			    	pc = ram.get(sp);
+			        System.out.println("RET: Return to " + pc);
+		    	}
+		        break;
 		    case STP:
 		    	run = false;
-		    	System.out.println("Stop\n");
+		    	System.out.println("STP: Stop\n");
 		        break;	        
 		    default:
 		    	run = false;
@@ -133,3 +168,4 @@ public class Hardware {
 		System.out.println("-------------------------");
 	}
 }
+

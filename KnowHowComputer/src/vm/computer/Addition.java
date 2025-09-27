@@ -14,8 +14,8 @@ public class Addition implements Software {
 	}
 
 	@Override
-	public HashMap<Integer, Instruction<Mnemonic, Integer, Integer>> getProgram() {
-		HashMap<Integer, Instruction<Mnemonic, Integer, Integer>> program = new HashMap<>();
+	public HashMap<Integer, Instruction<Mnemonic, Integer, Integer, Integer>> getProgram() {
+		HashMap<Integer, Instruction<Mnemonic, Integer, Integer, Integer>> program = new HashMap<>();
 		// storage address; mnemonic, target
 		program.put(1, new Instruction<>(Mnemonic.JMP, 4));
 		program.put(2, new Instruction<>(Mnemonic.INC, 1));

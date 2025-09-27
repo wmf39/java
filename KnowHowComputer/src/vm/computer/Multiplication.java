@@ -14,8 +14,8 @@ public class Multiplication implements Software {
 	}
 
 	@Override
-	public HashMap<Integer, Instruction<Mnemonic, Integer, Integer>> getProgram() {
-		HashMap<Integer, Instruction<Mnemonic, Integer, Integer>> program = new HashMap<>();
+	public HashMap<Integer, Instruction<Mnemonic, Integer, Integer, Integer>> getProgram() {
+		HashMap<Integer, Instruction<Mnemonic, Integer, Integer, Integer>> program = new HashMap<>();
 		// storage address; mnemonic, target
 		// Load counter, backup Multiplier a
 		program.put(1, new Instruction<>(Mnemonic.JMP, 5));			// Start checking if R1 empty
@@ -45,7 +45,8 @@ public class Multiplication implements Software {
 		program.put(21, new Instruction<>(Mnemonic.EQZ, 6));		// R6 empty?
 		program.put(22, new Instruction<>(Mnemonic.JMP, 19));		// No
 		// End
-		program.put(23, new Instruction<>(Mnemonic.STP));		// Stop
+		program.put(23, new Instruction<>(Mnemonic.STP));			// Stop
 		return program;
 	}
 }
+

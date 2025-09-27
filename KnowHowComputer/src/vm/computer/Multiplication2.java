@@ -14,8 +14,8 @@ public class Multiplication2 implements Software {
 	}
 
 	@Override
-	public HashMap<Integer, Instruction<Mnemonic, Integer, Integer>> getProgram() {
-		HashMap<Integer, Instruction<Mnemonic, Integer, Integer>> program = new HashMap<>();
+	public HashMap<Integer, Instruction<Mnemonic, Integer, Integer, Integer>> getProgram() {
+		HashMap<Integer, Instruction<Mnemonic, Integer, Integer, Integer>> program = new HashMap<>();
 		// storage address; mnemonic, target, source
 		// Load counter, backup Multiplier b
 		program.put(1, new Instruction<>(Mnemonic.STR, 4, 1));		// Store R1 -> R4 (counter)

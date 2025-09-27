@@ -8,7 +8,7 @@ public class Computer {
 	public static void main(String[] args) {
 		Software software;
 		Hardware hardware;
-		int selection = 3;
+		int selection = 4;
 		
 		if(selection == 1) {
 		software = new Addition();
@@ -22,6 +22,11 @@ public class Computer {
 		}
 		else if(selection == 3) {
 		software = new Multiplication2();
+		hardware = new Hardware(software);
+		hardware.run();
+		}
+		else if(selection == 4) {
+		software = new Function1();
 		hardware = new Hardware(software);
 		hardware.run();
 		}
