@@ -1,6 +1,7 @@
 package vm.computer;
 
 public enum Mnemonic {
+	
     INC("++"),
     DEC("--"),
     ADD("+"),

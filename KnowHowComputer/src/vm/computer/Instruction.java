@@ -1,6 +1,7 @@
 package vm.computer;
 
 public class Instruction<A, B, C, D> {
+	
 	public final A mnemonic;
 	public final B operand1;
     public final C operand2;

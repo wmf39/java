@@ -2,9 +2,7 @@ package vm.computer;
 
 import java.util.HashMap;
 
-public class Function1 implements Software{
-
-
+public class Function1 implements Software {
 	
 	@Override
 	public HashMap<Integer, Integer> getInitialisation() {

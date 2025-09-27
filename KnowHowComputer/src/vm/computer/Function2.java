@@ -2,10 +2,8 @@ package vm.computer;
 
 import java.util.HashMap;
 
-public class Function2 implements Software{
+public class Function2 implements Software {
 
-
-	
 	@Override
 	public HashMap<Integer, Integer> getInitialisation() {
 		HashMap<Integer, Integer> registers = new HashMap<>();
@@ -19,7 +17,7 @@ public class Function2 implements Software{
 	@Override
 	public HashMap<Integer, Instruction<Mnemonic, Integer, Integer, Integer>> getProgram() {
 		HashMap<Integer, Instruction<Mnemonic, Integer, Integer, Integer>> program = new HashMap<>();
-		program.put(1, new Instruction<>(Mnemonic.PUSH, 8));			// push return address (4)
+		program.put(1, new Instruction<>(Mnemonic.PUSH, 8));			// push return address (5)
 		program.put(2, new Instruction<>(Mnemonic.PUSH, 2));			// push value 2 (7)
 		program.put(3, new Instruction<>(Mnemonic.PUSH, 1));			// push value 1 (5)
 		program.put(4, new Instruction<>(Mnemonic.JMP, 14));			// function call
